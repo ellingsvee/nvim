@@ -71,4 +71,7 @@ vim.o.scrolloff = 10
 -- See `:help 'confirm'`
 vim.o.confirm = true
 
+-- Turn off line-warp by default
+vim.opt.wrap = false
+
 -- vim: ts=2 sts=2 sw=2 et

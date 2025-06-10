@@ -51,4 +51,44 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- Custom
+-- Disable the spacebar key's default behavior in Normal and Visual modes
+vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+
+-- For conciseness
+local opts = { noremap = true, silent = true }
+
+-- delete single character without copying into register
+vim.keymap.set('n', 'x', '"_x', opts)
+
+-- Vertical scroll and center
+vim.keymap.set('n', '<C-d>', '<C-d>zz', opts)
+vim.keymap.set('n', '<C-u>', '<C-u>zz', opts)
+
+-- Find and center
+vim.keymap.set('n', 'n', 'nzzzv', opts)
+vim.keymap.set('n', 'N', 'Nzzzv', opts)
+
+-- Toggle line wrapping
+vim.keymap.set('n', '<leader>lw', '<cmd>set wrap!<CR>', opts)
+vim.keymap.set('n', '<leader>lb', '<cmd>set linebreak!<CR>', opts)
+
+-- Stay in indent mode
+vim.keymap.set('v', '<', '<gv', opts)
+vim.keymap.set('v', '>', '>gv', opts)
+
+-- Keep last yanked when pasting
+vim.keymap.set('v', 'p', '"_dP', opts)
+
+-- Double tap leader to go to previous buffer
+vim.keymap.set('n', '<leader><leader>', '<C-6>', opts)
+
+-- Make sure the commentstring for C++ is //
+-- vim.api.nvim_create_autocmd('FileType', {
+--   pattern = 'cpp',
+--   callback = function()
+--     vim.bo.commentstring = '// %s'
+--   end,
+-- })
+
 -- vim: ts=2 sts=2 sw=2 et

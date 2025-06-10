@@ -32,11 +32,23 @@ return {
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
+        python = { 'ruff_format' },
+        -- c = { 'clangd' },
+        -- cpp = { 'clangd' },
+        c = { 'clang-format' },
+        cpp = { 'clang-format' },
+        -- c = { 'my_c_formatter' },
+        -- cpp = { 'my_c_formatter' },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
       },
+      -- formatters = {
+      --   my_c_formatter = {
+      --     command = 'clang-format',
+      --     args = '--style="{BasedOnStyle: Google}"',
+      --   },
+      -- },
     },
   },
 }

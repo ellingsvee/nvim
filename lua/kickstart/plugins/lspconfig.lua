@@ -98,7 +98,14 @@ return {
 
           -- Fuzzy find all the symbols in your current document.
           --  Symbols are things like variables, functions, types, etc.
-          map('gO', require('telescope.builtin').lsp_document_symbols, 'Open Document Symbols')
+          map('<leader>ds', require('telescope.builtin').lsp_document_symbols, 'Open Document Symbols')
+
+          -- Fuzzy find all the functions in your current document.
+          map('<leader>df', function()
+            require('telescope.builtin').lsp_document_symbols {
+              symbols = { 'function', 'class', 'method' },
+            }
+          end, '[D]ocument [F]unctions, classes and methods')
 
           -- Fuzzy find all the symbols in your current workspace.
           --  Similar to document symbols, except searches over your entire project.
@@ -198,6 +205,13 @@ return {
       --  So, we create new capabilities with blink.cmp, and then broadcast that to the servers.
       local capabilities = require('blink.cmp').get_lsp_capabilities()
 
+      -- Add the words marked by spell to a dict that can be read by LTeX
+      local path = vim.fn.stdpath 'config' .. '/spell/en.utf-8.add'
+      local words = {}
+      for word in io.open(path, 'r'):lines() do
+        table.insert(words, word)
+      end
+
       -- Enable the following language servers
       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
       --
@@ -208,9 +222,22 @@ return {
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        -- clangd = {},
+        clangd = {},
+        ruff = {},
         -- gopls = {},
-        -- pyright = {},
+        pyright = {},
+        ltex = {
+          -- See https://valentjn.github.io/ltex/settings.html
+          settings = {
+            ltex = {
+              -- checkFrequency = 'save',
+              language = 'en-US',
+              dictionary = {
+                ['en-US'] = words,
+              },
+            },
+          },
+        },
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -253,6 +280,8 @@ return {
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'ruff',
+        'clang-format',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
