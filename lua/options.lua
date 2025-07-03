@@ -7,7 +7,7 @@
 vim.o.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
--- vim.o.relativenumber = true
+vim.o.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.o.mouse = 'a'
@@ -73,5 +73,9 @@ vim.o.confirm = true
 
 -- Turn off line-warp by default
 vim.opt.wrap = false
+
+-- if the completion engine supports the AI source,
+-- use that instead of inline suggestions
+vim.g.ai_cmp = true
 
 -- vim: ts=2 sts=2 sw=2 et

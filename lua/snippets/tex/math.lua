@@ -1833,38 +1833,34 @@ M = {
   --
   -- -- Spacing commands
   --
-  -- s({trig = "thp", name = "Thin space", snippetType = "autosnippet"},
-  --     {
-  -- 		f(function(_,snip) return snip.captures[1] end),
-  --         t("\\,")
-  --     },
-  --     {condition = in_mathzone}
-  -- ),
-  --
-  -- s({trig = "mdn", name = "Medium space", snippetType = "autosnippet"},
-  --     {
-  -- 		f(function(_,snip) return snip.captures[1] end),
-  --         t("\\:")
-  --     },
-  --     {condition = in_mathzone}
-  -- ),
-  --
-  -- s({trig = "tkp", name = "Thick space", snippetType = "autosnippet"},
-  --     {
-  -- 		f(function(_,snip) return snip.captures[1] end),
-  --         t("\\;")
-  --     },
-  --     {condition = in_mathzone}
-  -- ),
-  --
-  -- s({trig = "enp", name = "Enskip", snippetType = "autosnippet"},
-  --     {
-  -- 		f(function(_,snip) return snip.captures[1] end),
-  --         t("\\enskip")
-  --     },
-  --     {condition = in_mathzone}
-  -- ),
-  --
+  s({ trig = 'thp', name = 'Thin space', snippetType = 'autosnippet', wordTrig = false }, {
+    f(function(_, snip)
+      return snip.captures[1]
+    end),
+    t '\\,',
+  }, { condition = in_mathzone }),
+
+  s({ trig = 'mdn', name = 'Medium space', snippetType = 'autosnippet', wordTrig = false }, {
+    f(function(_, snip)
+      return snip.captures[1]
+    end),
+    t '\\:',
+  }, { condition = in_mathzone }),
+
+  s({ trig = 'tkp', name = 'Thick space', snippetType = 'autosnippet', wordTrig = false }, {
+    f(function(_, snip)
+      return snip.captures[1]
+    end),
+    t '\\;',
+  }, { condition = in_mathzone }),
+
+  s({ trig = 'enp', name = 'Enskip', snippetType = 'autosnippet' }, {
+    f(function(_, snip)
+      return snip.captures[1]
+    end),
+    t '\\enskip',
+  }, { condition = in_mathzone }),
+
   s({ trig = 'qu', name = 'Quad', snippetType = 'autosnippet' }, {
     f(function(_, snip)
       return snip.captures[1]
@@ -1879,21 +1875,21 @@ M = {
     t '\\qquad',
   }, { condition = in_mathzone }),
 
-  s({ trig = 'thn', name = 'Negative thin space', snippetType = 'autosnippet' }, {
+  s({ trig = 'thn', name = 'Negative thin space', snippetType = 'autosnippet', wordTrig = false }, {
     f(function(_, snip)
       return snip.captures[1]
     end),
     t '\\!',
   }, { condition = in_mathzone }),
 
-  s({ trig = 'men', name = 'Negative medium space', snippetType = 'autosnippet' }, {
+  s({ trig = 'men', name = 'Negative medium space', snippetType = 'autosnippet', wordTrig = false }, {
     f(function(_, snip)
       return snip.captures[1]
     end),
     t '\\negmedspace',
   }, { condition = in_mathzone }),
 
-  s({ trig = 'tkn', name = 'Negative thick space', snippetType = 'autosnippet' }, {
+  s({ trig = 'tkn', name = 'Negative thick space', snippetType = 'autosnippet', wordTrig = false }, {
     f(function(_, snip)
       return snip.captures[1]
     end),

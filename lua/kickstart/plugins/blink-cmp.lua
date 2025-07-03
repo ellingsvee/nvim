@@ -4,6 +4,9 @@ return {
     event = 'VimEnter',
     version = '1.*',
     dependencies = {
+      {
+        'giuxtaposition/blink-cmp-copilot',
+      },
       -- Snippet Engine
       {
         'L3MON4D3/LuaSnip',
@@ -108,7 +111,8 @@ return {
         -- See :h blink-cmp-config-keymap for defining your own keymap
         -- preset = 'default',
         preset = 'super-tab',
-        -- ['<Tab>'] = { 'select_and_accept', 'fallback' },
+        -- ['<C-y>'] = { 'select_and_accept' },
+        ['<Tab>'] = { 'select_and_accept', 'fallback' },
         -- ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
         -- ['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
         --
@@ -138,16 +142,36 @@ return {
         trigger = {
           show_on_insert_on_trigger_character = false,
         },
+        ghost_text = {
+          enabled = vim.g.ai_cmp,
+        },
+        accept = {
+          -- experimental auto-brackets support
+          auto_brackets = {
+            enabled = true,
+          },
+        },
+        menu = {
+          draw = {
+            treesitter = { 'lsp' },
+          },
+        },
       },
 
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'lazydev', 'vimtex' },
+        default = { 'lsp', 'path', 'snippets', 'lazydev', 'vimtex', 'copilot' },
         providers = {
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
           vimtex = {
             name = 'vimtex',
             module = 'blink.compat.source',
             score_offset = 100,
+          },
+          copilot = {
+            name = 'copilot',
+            module = 'blink-cmp-copilot',
+            score_offset = 100,
+            async = true,
           },
         },
       },

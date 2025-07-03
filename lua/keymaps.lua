@@ -91,4 +91,22 @@ vim.keymap.set('n', '<leader><leader>', '<C-6>', opts)
 --   end,
 -- })
 
+-- -- Move Lines
+-- map('n', 'gj', "<cmd>execute 'move .+' . v:count1<cr>==", { desc = 'Move Down' })
+vim.keymap.set('n', 'gj', "<cmd>execute 'move .+' . v:count1<cr>==", opts)
+-- map('n', 'gk', "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = 'Move Up' })
+vim.keymap.set('n', 'gk', "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", opts)
+-- -- map("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move Down" })
+-- -- map("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
+-- map('v', 'gj', ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = 'Move Down' })
+-- map('v', 'gk', ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = 'Move Up' })
+--
+-- -- Clear search, diff update and redraw
+-- -- taken from runtime/lua/_editor.lua
+-- map('n', '<leader>ur', '<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>', { desc = 'Redraw / Clear hlsearch / Diff Update' })
+--
+-- -- save file
+-- map({ 'i', 'x', 'n', 's' }, '<C-s>', '<cmd>w<cr><esc>', { desc = 'Save File' })
+vim.keymap.set({ 'i', 'x', 'n', 's' }, '<C-s>', '<cmd>w<cr><esc>', opts)
+
 -- vim: ts=2 sts=2 sw=2 et

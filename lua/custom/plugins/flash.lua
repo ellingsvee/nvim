@@ -8,6 +8,10 @@ return {
         enabled = true, -- enables flash.nvim integration with / and ?
       },
     },
+    label = {
+      after = false,
+      before = true,
+    },
   },
   -- stylua: ignore
   keys = {
