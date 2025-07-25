@@ -1,4 +1,14 @@
+local function is_dap_buffer()
+  return require('cmp_dap').is_dap_buffer()
+end
+
 return {
+  { -- Needed for the DAP
+    'saghen/blink.compat',
+    version = '*',
+    lazy = true,
+    opts = {},
+  },
   { -- Autocompletion
     'saghen/blink.cmp',
     event = 'VimEnter',
@@ -6,6 +16,8 @@ return {
     dependencies = {
       {
         'giuxtaposition/blink-cmp-copilot',
+        'rcarriga/cmp-dap',
+        'mfussenegger/nvim-dap',
       },
       -- Snippet Engine
       {
@@ -85,6 +97,9 @@ return {
         },
       },
     },
+    keys = {
+      { '<leader>d', '', desc = '+debug' },
+    },
     --- @module 'blink.cmp'
     --- @type blink.cmp.Config
     opts = {
@@ -158,7 +173,17 @@ return {
         },
       },
 
+      -- DAP support
+      enabled = function()
+        return vim.bo.buftype ~= 'prompt' or is_dap_buffer()
+      end,
+
       sources = {
+        per_filetype = {
+          ['dap-repl'] = { 'dap', score_offset = 200 },
+          ['dapui_watches'] = { 'dap', score_offset = 200 },
+          ['dapui_hover'] = { 'dap', score_offset = 200 },
+        },
         default = { 'lsp', 'path', 'snippets', 'lazydev', 'vimtex', 'copilot' },
         providers = {
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
@@ -173,6 +198,7 @@ return {
             score_offset = 100,
             async = true,
           },
+          dap = { name = 'dap', module = 'blink.compat.source' },
         },
       },
 
