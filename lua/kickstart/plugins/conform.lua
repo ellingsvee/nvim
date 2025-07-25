@@ -32,7 +32,7 @@ return {
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
-        python = { 'ruff_format' },
+        python = { 'ruff_fix', 'ruff_format' }, -- The ruff-fix handles the imports
         -- c = { 'clangd' },
         -- cpp = { 'clangd' },
         c = { 'clang-format' },
@@ -43,12 +43,17 @@ return {
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
       },
-      -- formatters = {
-      --   my_c_formatter = {
-      --     command = 'clang-format',
-      --     args = '--style="{BasedOnStyle: Google}"',
-      --   },
-      -- },
+      formatters = {
+        my_c_formatter = {
+          command = 'clang-format',
+          args = '--style="{BasedOnStyle: Google}"',
+        },
+        ruff_fix = {
+          command = 'ruff',
+          args = { 'check', '--fix', '--stdin-filename', '$FILENAME', '-' },
+          stdin = true,
+        },
+      },
     },
   },
 }
